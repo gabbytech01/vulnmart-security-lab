@@ -1,4 +1,5 @@
 # Week 1 — Linux Security Baseline
+<img width="1366" height="728" alt="linuxxx" src="https://github.com/user-attachments/assets/848e458f-4883-4b54-ab01-a0ab189e799d" />
 
 ## 1. Environment
 
