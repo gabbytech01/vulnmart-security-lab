@@ -1,8 +1,8 @@
 import { COOKIE_NAME } from "@shared/const";
 import { getSessionCookieOptions } from "./_core/cookies";
 import { systemRouter } from "./_core/systemRouter";
-import { publicProcedure, router } from "./_core/trpc";
-import { getActiveProducts } from "./db";
+import { protectedProcedure, publicProcedure, router } from "./_core/trpc";
+import { getActiveProducts, getOrdersByUserId } from "./db";
 
 const fallbackProducts = [
   {
@@ -59,6 +59,17 @@ export const appRouter = router({
       return { success: true } as const;
     }),
   }),
+  account: router({
+    me: protectedProcedure.query(({ ctx }) => ({
+      id: ctx.user.id,
+      name: ctx.user.name,
+      email: ctx.user.email,
+      role: ctx.user.role,
+      memberSince: ctx.user.createdAt,
+    })),
+    orders: protectedProcedure.query(({ ctx }) => getOrdersByUserId(ctx.user.id)),
+  }),
+
 });
 
 export type AppRouter = typeof appRouter;

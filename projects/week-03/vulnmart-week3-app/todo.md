@@ -17,3 +17,14 @@
 - [x] Initialize Week 3 VulnMart web project scaffold
 - [x] Create initial implementation plan
 - [x] Add explicit catalogue and health error states plus an empty catalogue state, then verify desktop and mobile UX
+
+## Week 4 — Identity and authorization foundation
+
+- [x] Define Week 4 authorization matrix for anonymous users, authenticated users, and administrators
+- [x] Add protected account summary procedure using the existing session identity
+- [x] Add secure user-scoped order-history procedure with ownership enforcement
+- [x] Add authenticated account and order-history page with login and empty/error states
+- [x] Add Vitest coverage for protected access and cross-user order isolation
+- [x] Write Week 4 authorization and threat-model documentation
+- [x] Run TypeScript checks, tests, and visual verification for Week 4
+- [x] Save the final Week 4 checkpoint

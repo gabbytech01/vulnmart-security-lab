@@ -37,6 +37,7 @@ export default function Home() {
             <a href="#catalogue" className="hover:text-[#102b3a]">Catalogue</a>
             <a href="#method" className="hover:text-[#102b3a]">How it works</a>
             <a href="#boundary" className="hover:text-[#102b3a]">Lab boundary</a>
+            {isAuthenticated && <a href="/account" className="hover:text-[#102b3a]">Account</a>}
           </nav>
           <div className="flex items-center gap-3">
             <button type="button" className="rounded-lg p-2 text-[#55707a] md:hidden" aria-label={mobileMenuOpen ? "Close navigation" : "Open navigation"} aria-expanded={mobileMenuOpen} onClick={() => setMobileMenuOpen(open => !open)}>{mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}</button>
@@ -44,7 +45,7 @@ export default function Home() {
             {isAuthenticated ? <button onClick={() => logout()} className="text-sm font-semibold text-[#55707a] hover:text-[#102b3a]">Sign out</button> : <span className="text-sm text-[#80939a]">Public preview</span>}
           </div>
         </div>
-        {mobileMenuOpen && <nav className="border-t border-[#dce7e8] bg-white px-6 py-4 md:hidden"><div className="flex flex-col gap-4 text-sm font-semibold text-[#55707a]"><a href="#catalogue" onClick={() => setMobileMenuOpen(false)}>Catalogue</a><a href="#method" onClick={() => setMobileMenuOpen(false)}>How it works</a><a href="#boundary" onClick={() => setMobileMenuOpen(false)}>Lab boundary</a></div></nav>}
+        {mobileMenuOpen && <nav className="border-t border-[#dce7e8] bg-white px-6 py-4 md:hidden"><div className="flex flex-col gap-4 text-sm font-semibold text-[#55707a]"><a href="#catalogue" onClick={() => setMobileMenuOpen(false)}>Catalogue</a><a href="#method" onClick={() => setMobileMenuOpen(false)}>How it works</a><a href="#boundary" onClick={() => setMobileMenuOpen(false)}>Lab boundary</a>{isAuthenticated && <a href="/account" onClick={() => setMobileMenuOpen(false)}>Account</a>}</div></nav>}
       </header>
 
       <main>
