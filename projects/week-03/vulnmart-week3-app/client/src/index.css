@@ -1,0 +1,42 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap');
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  font-family: 'DM Sans', ui-sans-serif, system-ui, sans-serif;
+  color: #102b3a;
+  background: #f4f7f8;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; min-width: 320px; background: #f4f7f8; }
+button, a { -webkit-tap-highlight-color: transparent; }
+button { cursor: pointer; }
+
+h1, h2, h3, h4, .font-display { font-family: 'Space Grotesk', 'DM Sans', sans-serif; }
+
+@theme inline {
+  --color-background: #f4f7f8;
+  --color-foreground: #102b3a;
+  --color-card: #ffffff;
+  --color-card-foreground: #102b3a;
+  --color-popover: #ffffff;
+  --color-popover-foreground: #102b3a;
+  --color-primary: #0b3444;
+  --color-primary-foreground: #ffffff;
+  --color-secondary: #eaf7f1;
+  --color-secondary-foreground: #17755f;
+  --color-muted: #eef3f3;
+  --color-muted-foreground: #6e838a;
+  --color-accent: #d8efe7;
+  --color-accent-foreground: #102b3a;
+  --color-border: #dce7e8;
+  --color-input: #dce7e8;
+  --color-ring: #49a88d;
+  --radius: 1rem;
+}
