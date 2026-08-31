@@ -3,6 +3,7 @@ import { getSessionCookieOptions } from "./_core/cookies";
 import { systemRouter } from "./_core/systemRouter";
 import { protectedProcedure, publicProcedure, router } from "./_core/trpc";
 import { getActiveProducts, getOrdersByUserId } from "./db";
+import { z } from "zod";
 
 const fallbackProducts = [
   {
@@ -68,6 +69,11 @@ export const appRouter = router({
       memberSince: ctx.user.createdAt,
     })),
     orders: protectedProcedure.query(({ ctx }) => getOrdersByUserId(ctx.user.id)),
+    // INTENTIONALLY VULNERABLE: lab-only BOLA/IDOR example.
+    // The client can choose another user ID because ownership is not enforced.
+    ordersByUserIdLab: protectedProcedure
+      .input(z.object({ userId: z.number().int().positive() }))
+      .query(({ input }) => getOrdersByUserId(input.userId)),
   }),
 
 });
