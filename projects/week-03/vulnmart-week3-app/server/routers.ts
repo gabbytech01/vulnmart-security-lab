@@ -97,5 +97,20 @@ export const appRouter = router({
         const claims = decodeLabToken(input.token);
         return getOrdersByUserId(claims.sub);
       }),
+    // INTENTIONALLY VULNERABLE: role is trusted from the unsigned JWT.
+    // Changing role from user to admin unlocks this fictional lab report.
+    adminReport: publicProcedure
+      .input(z.object({ token: z.string().min(1) }))
+      .query(({ input }) => {
+        const claims = decodeLabToken(input.token);
+        if (claims.role !== "admin") {
+          throw new Error("Lab report requires admin role");
+        }
+        return {
+          report: "FICTIONAL LAB REPORT: VulnMart training metrics",
+          viewerId: claims.sub,
+          warning: "Training data only; never use real customer information.",
+        };
+      }),
   }),
 });
