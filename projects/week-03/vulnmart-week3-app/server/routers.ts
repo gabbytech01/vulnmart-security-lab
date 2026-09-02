@@ -3,6 +3,7 @@ import { getSessionCookieOptions } from "./_core/cookies";
 import { systemRouter } from "./_core/systemRouter";
 import { protectedProcedure, publicProcedure, router } from "./_core/trpc";
 import { getActiveProducts, getOrdersByUserId } from "./db";
+import { decodeLabToken, issueUnsignedLabToken } from "./labJwt";
 import { z } from "zod";
 
 const fallbackProducts = [
@@ -76,6 +77,25 @@ export const appRouter = router({
       .query(({ input }) => getOrdersByUserId(input.userId)),
   }),
 
+  labJwt: router({
+    issue: publicProcedure
+      .input(z.object({
+        userId: z.number().int().positive(),
+        role: z.enum(["user", "admin"]).default("user"),
+      }))
+      .mutation(({ input }) => ({
+        token: issueUnsignedLabToken({
+          sub: input.userId,
+          role: input.role,
+          iat: Date.now(),
+        }),
+        warning: "Training token only: unsigned and intentionally vulnerable.",
+      })),
+    orders: publicProcedure
+      .input(z.object({ token: z.string().min(1) }))
+      .query(({ input }) => {
+        const claims = decodeLabToken(input.token);
+        return getOrdersByUserId(claims.sub);
+      }),
+  }),
 });
-
-export type AppRouter = typeof appRouter;
